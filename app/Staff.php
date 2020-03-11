@@ -19,6 +19,10 @@ class Staff extends Authenticatable
     protected $fillable = [
         'email', 'password',
     ];
+
+
+    protected $table = "staff";
+
      /**
       * The attributes that should be hidden for arrays.
       *

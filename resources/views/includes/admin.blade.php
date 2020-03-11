@@ -33,6 +33,16 @@
                         <a href="/admin/subject/create">Add Subject</a>
                     </li> 
                 </ul>
+
+                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Events</span></a>
+                <ul>
+                    <li>
+                        <a href="/admin/events">View Event</a>
+                    </li>
+                    <li>
+                        <a href="/admin/events/create">Add Event</a>
+                    </li> 
+                </ul>
             </li> 
             </ul>
         </div> 

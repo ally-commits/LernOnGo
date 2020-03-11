@@ -19,7 +19,7 @@ class SubjectController extends Controller
     {
         $data = DB::table("semesters")
         ->join("subjects",'semesters.id',"subjects.sem_id")
-        ->select("subjects.*","semesters.*")        
+        ->select("subjects.*","semesters.sem_name")        
         ->get(); 
         return view("admin.subjects.viewSubject")->with("data",$data);
         
@@ -66,7 +66,6 @@ class SubjectController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -77,7 +76,12 @@ class SubjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = DB::table("semesters")
+            ->join("subjects",'semesters.id',"subjects.sem_id")
+            ->where('subjects.id',"=", $id)
+            ->select("subjects.*","semesters.sem_name")        
+            ->get(); 
+        return view("admin.subjects.editSubject")->with("sem",$data);
     }
 
     /**
@@ -89,7 +93,16 @@ class SubjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $request->validate([    
+            'name' => ['required', 'string'],  
+            'sem' => ['required', 'integer'], 
+        ]); 
+        DB::table("subjects")
+        ->where('id',"=",$id)
+        ->update(['name'=> $data['name'], "sem_id" => $data['sem']]);
+            
+        return Redirect::route('subject.index')->with('message', 'Subject Edited Succesfully');
     }
 
     /**
@@ -98,8 +111,11 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $sub = Subjects::find($id);
+        $sub->delete();
+
+        return Redirect::route('subject.index')->with('message', 'Subject Deleted Succesfully');
     }
 }

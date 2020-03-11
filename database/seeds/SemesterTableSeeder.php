@@ -42,6 +42,11 @@ class SemesterTableSeeder extends Seeder
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
+
+        App\Staff::create([
+            "email" => "staff@gmail.com",
+            "password" => bcrypt("staff")
+        ]);
         
     }
 }
