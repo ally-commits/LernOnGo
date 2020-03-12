@@ -1,4 +1,4 @@
-@extends("layouts.admin")
+@extends("layouts.staff")
 
 @section("content")
     <div class="container">
@@ -6,19 +6,21 @@
             <table class="table table-striped table-vcenter">
                 <thead>
                     <th>Sl No</th>
-                    <th>Name</th>
-                    <th>Email</th>
+                    <th>Semester Name</th>
+                    <th>Subject Name</th>
+                    <th>Notes Name</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
                     @foreach($data as $key=>$d)
                         <tr>
                             <td>{{ $key+1 }}</td>
-                            <td>{{ $d->name }}</td>
-                            <td>{{ $d->email }}</td>
+                            <td>{{ $d->sem_name }}</td> 
+                            <td>{{ $d->sub_name }}</td> 
+                            <td>{{ $d->name }}</td> 
                             <td>
-                                <a href="/admin/staff/{{$d->id}}/edit">Edit</a>
-                                <a href="/admin/staff/delete/{{$d->id}}">Delete</a>
+                                <a href="/staff/notes/{{$d->id}}/edit">Edit</a>
+                                <a href="/staff/notes/delete/{{$d->id}}">Delete</a>
                             </td>
                         </tr>
                     @endforeach

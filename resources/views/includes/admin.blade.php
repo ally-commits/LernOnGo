@@ -33,7 +33,8 @@
                         <a href="/admin/subject/create">Add Subject</a>
                     </li> 
                 </ul>
-
+                </li>
+                <li>
                 <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Events</span></a>
                 <ul>
                     <li>
@@ -43,6 +44,8 @@
                         <a href="/admin/events/create">Add Event</a>
                     </li> 
                 </ul>
+                </li>
+                <li>
                 <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Staff</span></a>
                 <ul>
                     <li>
@@ -52,6 +55,18 @@
                         <a href="/admin/staff/create">Add Staff</a>
                     </li> 
                 </ul>
+                </li>
+                <li>
+                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Scholarship</span></a>
+                <ul>
+                    <li>
+                        <a href="/admin/scholarship">View Scholarship</a>
+                    </li>
+                    <li>
+                        <a href="/admin/scholarship/create">Add Scholarship</a>
+                    </li> 
+                </ul>
+                </li>
             </li> 
             </ul>
         </div> 

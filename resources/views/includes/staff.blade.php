@@ -20,21 +20,39 @@
         </div>  
         <div class="content-side content-side-full">
             <ul class="nav-main">
+                <li class="open">
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Notes</span></a>
+                    <ul>
+                        <li>
+                            <a href="/staff/notes">View Notes</a>
+                        </li>
+                        <li>
+                            <a href="/staff/notes/create">Add Notes</a>
+                        </li> 
+                    </ul> 
+                </li>
                 <li>
-                    <a href="/staff/add-notes"><i class="si si-cup"></i><span class="sidebar-mini-hide">Add Notes</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Videos</span></a>
+                    <ul>
+                        <li>
+                            <a href="/staff/videos">View Videos</a>
+                        </li>
+                        <li>
+                            <a href="/staff/videos/create">Add Videos</a>
+                        </li> 
+                    </ul> 
                 </li>  
                 <li>
-                    <a href="/staff/add-video"><i class="si si-cup"></i><span class="sidebar-mini-hide">Add Video Sessions</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Assignment</span></a>
+                    <ul>
+                        <li>
+                            <a href="/staff/assignment">View Assignment</a>
+                        </li>
+                        <li>
+                            <a href="/staff/assignment/create">Add Assignment</a>
+                        </li> 
+                    </ul> 
                 </li>  
-                <li>
-                    <a href="/staff/add-event"><i class="si si-cup"></i><span class="sidebar-mini-hide">Add Events</span></a>
-                </li>  
-                <li>
-                    <a href="/"><i class="si si-cup"></i><span class="sidebar-mini-hide">Add Scholorship Details</span></a>
-                </li> 
-                <li>
-                    <a href="/"><i class="si si-cup"></i><span class="sidebar-mini-hide">Upload Assignment</span></a>
-                </li>   
             </ul>
         </div> 
     </div> 

@@ -1,0 +1,135 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Staff;
+use Auth;
+use App\Semester;
+use App\Assignment;
+use Redirect;
+use DB;
+use Hash;
+
+class StaffAssignmentController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:staff');
+    }
+    public function index()
+    {
+        $data = DB::table("assignments")
+                ->join("semesters","semesters.id","assignments.semId")
+                ->join("subjects","subjects.id","assignments.subId")
+                ->select("semesters.sem_name","subjects.name as sub_name","assignments.*")
+                ->where("staffId",Auth::user()->id)
+                ->get(); 
+        return view("staff.assignment.viewAssignment")->with("data",$data);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    { 
+        $subjects = DB::table("subjects")->get();
+        return view("staff.assignment.addAssignment")->with("subjects", $subjects);      ;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $data = $request->all();
+        $request->validate([
+            'name' => ['required', 'string'],  
+            'question' => ['required','string'], 
+        ]);  
+        $semester = Semester::find($data['subject']); 
+        Assignment::create([
+            'name' => $data['name'],
+            'question' =>  $data['question'],
+            'subId' => $data['subject'],
+            'semId' => $semester->id,
+            'staffId' => Auth::user()->id
+        ]);
+        return Redirect::route('assignment.index')->with('message', 'Assignment Added Succesfully');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    { 
+        $data = DB::table("assignments")
+                ->join("semesters","semesters.id","assignments.semId")
+                ->join("subjects","subjects.id","assignments.subId")
+                ->select("semesters.sem_name","subjects.name as sub_name","assignments.*")
+                ->where("assignments.id",$id)
+                ->get(); 
+        $subjects = DB::table("subjects")->get();
+        return view("staff.assignment.editAssignment")->with("assignment",$data)->with("subjects", $subjects);      ;;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $request->validate([
+            'name' => ['required', 'string'],  
+            'question' => ['required','string'] 
+        ]); 
+        $semester = Semester::find($data['subject']);
+        DB::table("assignments")
+            ->where("id",$id)
+            ->update(['name' => $data['name'], 'question' => $data['question'],
+            'subId' => $data['subject'],
+            'semId' => $semester->id]);
+        return Redirect::route('assignment.index')->with('message', 'Assignment Updated Succesfully');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $assignment = Assignment::find($id);
+        $assignment->delete();
+
+        return Redirect::route('assignment.index')->with('message', 'Assignment Deleted Succesfully');
+    }
+}

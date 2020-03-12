@@ -22,22 +22,10 @@
             <ul class="nav-main">
                 <li>
                     <a href="/"><i class="si si-cup"></i><span class="sidebar-mini-hide">Home</span></a>
-                </li> 
+                </li>
                 <li>
-                    <a href="/study-material"><i class="si si-book-open"></i><span class="sidebar-mini-hide">Study Material</span></a>
-                </li> 
-                <li>
-                    <a href="/events"><i class="fa fa-etsy"></i><span class="sidebar-mini-hide">Events</span></a>
-                </li> 
-                <li>
-                    <a href="#"><i class="fa fa-drivers-license"></i><span class="sidebar-mini-hide">Scholarships</span></a>
-                </li> 
-                <li>
-                    <a href="/video"><i class="fa fa-file-video-o"></i><span class="sidebar-mini-hide">Video Tutorial</span></a>
-                </li> 
-                <li>
-                    <a href="/assignment"><i class="fa fa-wpforms"></i><span class="sidebar-mini-hide">View Assignment</span></a>
-                </li> 
+                    <a href="/view-notes"><i class="si si-cup"></i><span class="sidebar-mini-hide">View Notes</span></a>
+                </li>  
             </ul>
         </div> 
     </div> 

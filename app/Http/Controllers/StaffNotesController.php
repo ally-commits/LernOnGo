@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Staff;
 use Auth;
+use App\Semester;
+use App\Notes;
 use Redirect;
 use DB;
 use Hash;
@@ -16,14 +18,19 @@ class StaffNotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:staff');
+    }
     public function index()
     {
-        $data = DB::table("notes")->where("staffId",Auth::user()->id)->get(); 
-        $subjects = DB::table("subjects")
-        ->join("semesters","semesters.id",'subjects.id')    
-        ->get();
-
-        return view("staff.notes.viewNotes")->with("data",$data);      
+        $data = DB::table("notes")
+                ->join("semesters","semesters.id","notes.semId")
+                ->join("subjects","subjects.id","notes.subId")
+                ->select("semesters.sem_name","subjects.name as sub_name","notes.*")
+                ->where("staffId",Auth::user()->id)
+                ->get(); 
+        return view("staff.notes.viewNotes")->with("data",$data);
     }
 
     /**
@@ -33,7 +40,8 @@ class StaffNotesController extends Controller
      */
     public function create()
     { 
-        return view("staff.notes.addNotes");
+        $subjects = DB::table("subjects")->get();
+        return view("staff.notes.addNotes")->with("subjects", $subjects);      ;
     }
 
     /**
@@ -47,16 +55,20 @@ class StaffNotesController extends Controller
         $data = $request->all();
         $request->validate([
             'name' => ['required', 'string'],  
-            'email' => ['required', 'string', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'file' => ['required'], 
         ]);  
-
-        Staff::create([
+        $semester = Semester::find($data['subject']);
+        $file = $request->file('file');
+        $fileName = time().'.'.$data['file']->getClientOriginalExtension();
+        $file->move('files/', $fileName); 
+        Notes::create([
             'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'file' =>  'files/'.$fileName, 
+            'subId' => $data['subject'],
+            'semId' => $semester->id,
+            'staffId' => Auth::user()->id
         ]);
-        return Redirect::route('staff.index')->with('message', 'Staff Added Succesfully');
+        return Redirect::route('notes.index')->with('message', 'Notes Added Succesfully');
     }
 
     /**
@@ -77,11 +89,14 @@ class StaffNotesController extends Controller
      */
     public function edit($id)
     { 
-        $subjects = DB::table("notes")
-        ->join("semesters","semesters.id",'notes.semId')
-        ->join("subjects","semester.id",'notes.semId')    
-        ->get();
-        return view("admin.staff.editStaff")->with("staff",$data);
+        $data = DB::table("notes")
+                ->join("semesters","semesters.id","notes.semId")
+                ->join("subjects","subjects.id","notes.subId")
+                ->select("semesters.sem_name","subjects.name as sub_name","notes.*")
+                ->where("notes.id",$id)
+                ->get(); 
+        $subjects = DB::table("subjects")->get();
+        return view("staff.notes.editNotes")->with("notes",$data)->with("subjects", $subjects);      ;;
     }
 
     /**
@@ -95,22 +110,28 @@ class StaffNotesController extends Controller
     {
         $data = $request->all();
         $request->validate([
-            'name' => ['required', 'string'],  
-            'email' => ['required', 'string', 'max:255', 'unique:users'], 
-        ]);  
-        if($request->password != '') {
-            $request->validate([
-                'password' => ['required','min:8','confirmed']
+            'name' => ['required', 'string'],   
+        ]);   
+         
+        if($request['file'] != null) { 
+            $request->validate([ 
+                'file' => ['required']
             ]);
-            DB::table("staff")
-                ->where("id", '=', $data['id'])
-                ->update(['password' => Hash::make($data['password'])]);
-        }
-        DB::table("staff")
-        ->where('id',"=",$id)
-            ->update(['name'=> $data['name'], "email" => $data['email']]);
-            
-        return Redirect::route('staff.index')->with('message', 'Staff Edited Succesfully');
+            $files = $request->file('file');
+            $filesName = time().'.'.$data['file']->getClientOriginalExtension();
+            $files->move('files/', $filesName);
+
+            DB::table('notes')
+                ->where('id' ,'=', $id)
+                ->update(['file' => 'files/'.$filesName]);
+        } 
+        $semester = Semester::find($data['subject']);
+        DB::table("notes")
+            ->where("id",$id)
+            ->update(['name' => $data['name'], 
+            'subId' => $data['subject'],
+            'semId' => $semester->id]);
+        return Redirect::route('notes.index')->with('message', 'Notes Updated Succesfully');
     }
 
     /**
@@ -121,9 +142,9 @@ class StaffNotesController extends Controller
      */
     public function delete($id)
     {
-        $staff = Staff::find($id);
-        $staff->delete();
+        $notes = Notes::find($id);
+        $notes->delete();
 
-        return Redirect::route('staff.index')->with('message', 'Staff Deleted Succesfully');
+        return Redirect::route('notes.index')->with('message', 'Notes Deleted Succesfully');
     }
 }

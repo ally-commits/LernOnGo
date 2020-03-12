@@ -1,15 +1,27 @@
-@extends("layouts.admin")
+@extends("layouts.staff")
 
 @section("content")
     <div class="container">
         <div class="card p-2">
             <div class="card-header">
-                <h5>Add Staff</h5>
+                <h5>Add Notes</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('staff.store') }}" method="POST">
+                <form action="{{ route('notes.store') }}"  method="POST" enctype="multipart/form-data">
                 @csrf
                     <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="">Select the Subject</label>
+                            <select name="subject" class="form-control @error('subject') is-invalid @enderror">
+                                @foreach($subjects as $subject)
+                                    <option value="{{$subject->id}}">{{$subject->name}}</option>
+                                @endforeach
+                            </select>
+
+                            @error("subject")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="form-group col-md-6">
                             <label for="">Enter the Name</label>
                             <input type="text" place="Name" class="form-control  @error('name') is-invalid @enderror"
@@ -19,31 +31,15 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="">Enter the Username</label>
-                            <input type="text" place="username" class="form-control  @error('email') is-invalid @enderror"
-                                name="email" value="{{ old('email') }}" />
-                            @error("email")
+                            <label for="">Enter the File</label>
+                            <input type="file" place="File" class="form-control  @error('file') is-invalid @enderror"
+                                name="file" value="{{ old('file') }}" />
+                            @error("file")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                        </div> 
-
-                        <div class="form-group col-md-6">
-                            <label for="password">{{ __('Password') }}</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror 
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                        </div>
+                        </div>  
                     </div> 
-                    <button type="submit" class="btn btn-primary">Add Staff</button>
+                    <button type="submit" class="btn btn-primary">Add Notes</button>
                 </form>
             </div>
         </div>

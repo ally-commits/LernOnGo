@@ -1,52 +1,49 @@
-@extends("layouts.admin")
+@extends("layouts.staff")
 
 @section("content")
     <div class="container">
         <div class="card p-2">
             <div class="card-header">
-                <h5>Edit Staff</h5>
+                <h5>Edit Notes</h5>
             </div>
             <div class="card-body">
-                <form action="/admin/staff/{{$staff->id}}" method="POST">
+                <form action="/staff/notes/{{ $notes[0]->id }}"  method="POST" enctype="multipart/form-data">
                 @method("PUT")
                 @csrf
                     <div class="row">
                         <div class="form-group col-md-6">
+                            <label for="">Select the Subject</label>
+                            <select name="subject" class="form-control @error('subject') is-invalid @enderror">
+                                @foreach($subjects as $subject)
+                                    <option value="{{$subject->id}}" @if($notes[0]->subId == $subject->id) selected @endif)>{{$subject->name}}</option>
+                                @endforeach
+                            </select>
+
+                            @error("subject")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6">
                             <label for="">Enter the Name</label>
                             <input type="text" place="Name" class="form-control  @error('name') is-invalid @enderror"
-                                name="name" value="{{$staff->name }}" />
+                                name="name" value="{{ $notes[0]->Name }}" />
                             @error("name")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Enter the Username</label>
-                            <input type="text" place="username" class="form-control  @error('email') is-invalid @enderror"
-                                name="email" value="{{$staff->email }}" />
-                            @error("email")
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div> 
                     </div>
-                    <span class="text-danger">Write password only if want to change</span>
+                    <div class="text-danger">Choose file only if u want to change</div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label for="password">{{ __('Password') }}</label>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" >
-
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror 
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="password-confirm">{{ __('Confirm Password') }}</label>
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" >
-                        </div>
+                            <label for="">Enter the File</label>
+                            <input type="file" place="File" class="form-control  @error('file') is-invalid @enderror"
+                                name="file" value="{{ $notes[0]->file }}" />
+                            @error("file")
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>  
                     </div> 
-                    <button type="submit" class="btn btn-primary">Update Staff</button>
+                    <button type="submit" class="btn btn-primary">Update Notes</button>
                 </form>
             </div>
         </div>

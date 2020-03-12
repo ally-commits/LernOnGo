@@ -17,8 +17,7 @@ class CreateScholarshipsTable extends Migration
             $table->bigIncrements('id');
             $table->string("name");
             $table->date("lastDate");
-            $table->string("desc");
-            $table->string("staffId");
+            $table->string("desc"); 
             $table->timestamps();
         });
     }
