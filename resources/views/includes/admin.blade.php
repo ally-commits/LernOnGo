@@ -43,6 +43,15 @@
                         <a href="/admin/events/create">Add Event</a>
                     </li> 
                 </ul>
+                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Staff</span></a>
+                <ul>
+                    <li>
+                        <a href="/admin/staff">View Staff</a>
+                    </li>
+                    <li>
+                        <a href="/admin/staff/create">Add Staff</a>
+                    </li> 
+                </ul>
             </li> 
             </ul>
         </div> 

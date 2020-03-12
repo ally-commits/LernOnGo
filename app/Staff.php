@@ -17,7 +17,7 @@ class Staff extends Authenticatable
       * @var array
       */
     protected $fillable = [
-        'email', 'password',
+        'email', 'password','name'
     ];
 
 
