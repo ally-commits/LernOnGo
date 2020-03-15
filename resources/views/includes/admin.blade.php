@@ -23,7 +23,7 @@
                 <li>
                     <a href="/admin/dashboard"><i class="si si-cup"></i><span class="sidebar-mini-hide">Home</span></a>
                 </li>
-                <li class="open">
+                <li>
                 <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Subject</span></a>
                 <ul>
                     <li>

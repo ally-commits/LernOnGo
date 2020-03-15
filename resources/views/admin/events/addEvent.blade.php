@@ -13,8 +13,8 @@
                     <div class="row">
                          
                         <div class="form-group col-md-6">
-                            <label for="">Enter the Subject Name</label>
-                            <input type="text" placeholder="Subject Name" class="form-control  @error('name') is-invalid @enderror"
+                            <label for="">Enter the Event Name</label>
+                            <input type="text" placeholder="Event Name" class="form-control  @error('name') is-invalid @enderror"
                                 name="name" value="{{ old('name') }}" />
                             @error("name")
                                 <span class="text-danger">{{ $message }}</span>

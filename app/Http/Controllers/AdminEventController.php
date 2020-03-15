@@ -14,13 +14,30 @@ class AdminEventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     public function index()
     {
         $data = DB::table("events")->get(); 
         return view("admin.events.viewEvents")->with("data",$data);
         
     }
-
+    public function registred($id)
+    {
+        $data = DB::table("register_events")
+            ->join("users","register_events.studentId","users.id") 
+            ->where("register_events.eventId", $id)
+            ->get();
+        $count = DB::table("register_events")
+            ->join("users","register_events.studentId","users.id") 
+            ->where("register_events.eventId", $id)
+            ->count();
+        $event = Events::find($id);
+        return view("admin.events.registred")->with("data",$data)->with("event",$event)
+                ->with("count", $count);
+    }
     /**
      * Show the form for creating a new resource.
      *

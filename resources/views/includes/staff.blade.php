@@ -20,7 +20,7 @@
         </div>  
         <div class="content-side content-side-full">
             <ul class="nav-main">
-                <li class="open">
+                <li>
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Notes</span></a>
                     <ul>
                         <li>
@@ -41,6 +41,17 @@
                             <a href="/staff/videos/create">Add Videos</a>
                         </li> 
                     </ul> 
+                </li> 
+                <li>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Events</span></a>
+                    <ul>
+                        <li>
+                            <a href="/staff/staffEvent">View Event</a>
+                        </li>
+                        <li>
+                            <a href="/staff/staffEvent/create">Add Event</a>
+                        </li> 
+                    </ul> 
                 </li>  
                 <li>
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Assignment</span></a>
@@ -53,6 +64,9 @@
                         </li> 
                     </ul> 
                 </li>  
+                <li>
+                    <a  href="/staff/view-sent-notes"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">View Sent Notes</span></a>
+                </li>
             </ul>
         </div> 
     </div> 

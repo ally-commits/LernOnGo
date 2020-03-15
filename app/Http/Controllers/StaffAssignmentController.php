@@ -7,6 +7,8 @@ use App\Staff;
 use Auth;
 use App\Semester;
 use App\Assignment;
+use App\AssignmentAnswer;
+use App\User;
 use Redirect;
 use DB;
 use Hash;
@@ -38,6 +40,21 @@ class StaffAssignmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getSubmissions($id) {
+        $data = DB::table("assignment_answers")
+            ->join("users","assignment_answers.studentId","users.id")
+            ->select("users.name",'users.email','assignment_answers.*')
+            ->where('assignmentId',$id)
+            ->get();
+        $assign = Assignment::find($id);
+        return view("staff.assignment.viewAssignmentSubmission")->with("data", $data)->with("assign", $assign);
+    }
+    public function getAnswer($id) {
+        $data = AssignmentAnswer::find($id);
+        $user = User::find($data->studentId);
+
+        return view("staff.assignment.viewAnswer")->with("data", $data)->with("user", $user);
+    }
     public function create()
     { 
         $subjects = DB::table("subjects")->get();

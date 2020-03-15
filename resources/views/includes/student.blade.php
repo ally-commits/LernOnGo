@@ -26,6 +26,29 @@
                 <li>
                     <a href="/view-notes"><i class="si si-cup"></i><span class="sidebar-mini-hide">View Notes</span></a>
                 </li>  
+                <li>
+                    <a href="/view-videos"><i class="si si-cup"></i><span class="sidebar-mini-hide">View Videos</span></a>
+                </li>  
+                <li>
+                    <a href="/view-assignment"><i class="si si-cup"></i><span class="sidebar-mini-hide">Assignments</span></a>
+                </li> 
+                <li>
+                    <a href="/view-scholarship"><i class="si si-cup"></i><span class="sidebar-mini-hide">Scholarship</span></a>
+                </li>  
+                <li>
+                    <a href="/view-events"><i class="si si-cup"></i><span class="sidebar-mini-hide">Events</span></a>
+                </li> 
+                <li>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Send Notes</span></a>
+                    <ul>
+                        <li>
+                            <a href="/view-sent-notes">View Sent Notes</a>
+                        </li>
+                        <li>
+                            <a href="/send-notes">Add Notes</a>
+                        </li> 
+                    </ul> 
+                </li>  
             </ul>
         </div> 
     </div> 

@@ -10,6 +10,7 @@
                     <th>Subject Name</th>
                     <th>Assignemnt Name</th>
                     <th>Assignemnt Question</th>
+                    <th>Submission</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -20,6 +21,7 @@
                             <td>{{ $d->sub_name }}</td> 
                             <td>{{ $d->name }}</td> 
                             <td>{{ $d->question }}</td> 
+                            <td><a href="/staff/view-assignment/{{$d->id}}">View Submission</a></td>
                             <td>
                                 <a href="/staff/assignment/{{$d->id}}/edit">Edit</a>
                                 <a href="/staff/assignment/delete/{{$d->id}}">Delete</a>

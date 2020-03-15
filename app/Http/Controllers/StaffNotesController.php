@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Staff;
 use Auth;
 use App\Semester;
+use App\StudentNotes;
 use App\Notes;
 use Redirect;
 use DB;
@@ -146,5 +147,32 @@ class StaffNotesController extends Controller
         $notes->delete();
 
         return Redirect::route('notes.index')->with('message', 'Notes Deleted Succesfully');
+    }
+    public function viewSentNotes() {
+        $data = DB::table("student_notes")
+            ->join("staff","student_notes.staffId","staff.id")
+            ->join("users","student_notes.studentId","users.id")
+            ->join("subjects","student_notes.subjectId","subjects.id")
+            ->select("subjects.name as subName","users.name as sName","student_notes.*")
+            ->where("staffId",Auth::user()->id)->get();
+
+        return view("staff.viewSentNotes")->with('data',$data);
+    }
+    public function approve($id){
+        $data = StudentNotes::find($id);
+        $semester = Semester::find($data->studentId);
+        Notes::create([
+            'name' => $data->name,
+            'file' => $data->file,
+            'staffId' => Auth::user()->id,
+            'semId' => $semester->id,
+            'subId' => $data->subjectId
+        ]);
+        DB::table("student_notes")->where("id",$id)->update(["status"=>"approved"]);
+        return Redirect::route('viewSentNotes')->with('message', 'Notes Approved Succesfully');
+    }
+    public function reject($id) {
+        DB::table("student_notes")->where("id",$id)->update(["status"=>"rejected"]);
+        return Redirect::route('viewSentNotes')->with('message', 'Notes Rejected Succesfully');
     }
 }

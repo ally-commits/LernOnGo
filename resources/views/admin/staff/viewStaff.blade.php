@@ -16,6 +16,7 @@
                             <td>{{ $key+1 }}</td>
                             <td>{{ $d->name }}</td>
                             <td>{{ $d->email }}</td>
+                                
                             <td>
                                 <a href="/admin/staff/{{$d->id}}/edit">Edit</a>
                                 <a href="/admin/staff/delete/{{$d->id}}">Delete</a>

@@ -45,7 +45,7 @@ class SemesterTableSeeder extends Seeder
 
         App\Admin::create([
             "email" => "admin",
-            "password" => bcrypt("staff")
+            "password" => bcrypt("password")
         ]);
         
     }

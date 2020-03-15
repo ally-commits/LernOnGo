@@ -14,6 +14,10 @@ class AdminScholarshipController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
     public function index()
     {
         $data = DB::table("scholarships")->get(); 

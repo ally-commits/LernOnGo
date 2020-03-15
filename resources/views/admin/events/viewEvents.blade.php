@@ -10,6 +10,7 @@
                     <th>Date</th>
                     <th>Venue</th>
                     <th>Image</th>
+                    <th>View Registred</th>
                     <th>Action</th>
                 </thead>
                 <tbody>
@@ -20,6 +21,7 @@
                             <td>{{ $d->date }}</td>
                             <td>{{ $d->venue }}</td>
                             <td><img src="{{ asset($d->image) }}" style="width: 100px;"/></td>
+                            <td><a href="/admin/view-registred/{{$d->id}}">View Registred</a></td>
                             <td>
                                 <a href="/admin/events/{{$d->id}}/edit">Edit</a>
                                 <a href="/admin/events/delete/{{$d->id}}">Delete</a>

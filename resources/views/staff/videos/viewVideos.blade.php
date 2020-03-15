@@ -3,6 +3,10 @@
 @section("content")
     <div class="container">
         <div class="card p-2">
+            <div class="card-header d-flex justify-content-between">
+                <h5>View Notes</h5>
+                <a class="btn btn-primary" href="/staff/videos/create">Add One</a>
+            </div>
             <table class="table table-striped table-vcenter">
                 <thead>
                     <th>Sl No</th>
