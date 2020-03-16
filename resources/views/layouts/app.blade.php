@@ -23,7 +23,7 @@
 <body>
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-glass page-header-inverse main-content-boxed">
         @include("includes.student") 
-        <div class="p-50"></div>
+      <div class="p-50"></div> 
         @yield('content') 
     </div>
     @yield('js')

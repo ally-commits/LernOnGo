@@ -11,7 +11,7 @@
                     <div class="block-content flex-grow-1">
                         <h5 class="mb-5">
                             <a class="text-dark" href="javascript:void(0)">
-                                {{ $note->Name }}
+                                {{ $note->name }}
                             </a>
                         </h5>
                         <p class="text-muted">
