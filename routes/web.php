@@ -22,6 +22,13 @@ Route::get('/view-notes', 'HomeController@viewNotes')->name('viewNotes');
 Route::get('/view-notes/{sem_id}', 'HomeController@getSubjects')->name('getSubjects');
 Route::get('/view-notes/{sem_id}/{sub_id}', 'HomeController@getNotes')->name('getNotes');
 
+Route::get('/view-mcq', 'StudentMCQController@viewSem')->name("viewMcq");
+Route::get('/view-mcq/{sem_id}', 'StudentMCQController@viewSub');
+Route::get('/view-mcq/{sem_id}/{sub_id}', 'StudentMCQController@viewMcqs');
+
+Route::get('/mcq/answer-mcq/{id}', 'StudentMCQController@answer');
+Route::post('/mcq/answer-mcq/{id}', 'StudentMCQController@submit');
+
 Route::get('/view-videos', 'HomeController@viewSemVideos')->name('viewSemVideos');
 Route::get('/view-videos/{sem_id}', 'HomeController@viewSubVideos')->name('viewSubVideos');
 Route::get('/view-videos/{sem_id}/{sub_id}', 'HomeController@getVideos')->name('getVideos');
@@ -50,6 +57,18 @@ Route::prefix('staff')->group(function() {
 
     Route::resource('notes', 'StaffNotesController');
     Route::get('notes/delete/{id}', 'StaffNotesController@delete');
+
+    Route::resource('mcq', 'MCQController');
+    Route::get('mcq/delete/{id}', 'MCQController@delete');
+    Route::get('mcq/publish/{id}', 'MCQController@publish');
+    Route::get("mcq/student-attended/{id}","MCQController@showResult");
+
+    Route::get("/question/{mcqId}/create",'QuestionController@addData');
+    Route::post("/question/{mcqId}/store",'QuestionController@store');
+    Route::get("/question/{mcqId}/{id}/edit",'QuestionController@edit');
+    Route::post("/question/{mcqId}/{id}/update",'QuestionController@update');
+    Route::get("/question/{mcqId}/{id}/delete",'QuestionController@delete');
+    Route::get("/question/{mcqId}/",'QuestionController@index');
 
     Route::resource('videos', 'StaffVideoController');
     Route::get('videos/delete/{id}', 'StaffVideoController@delete');

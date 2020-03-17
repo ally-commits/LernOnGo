@@ -39,6 +39,9 @@
                     <a href="/view-events"><i class="si si-cup"></i><span class="sidebar-mini-hide">Events</span></a>
                 </li> 
                 <li>
+                    <a href="/view-mcq"><i class="si si-cup"></i><span class="sidebar-mini-hide">MCQ</span></a>
+                </li> 
+                <li>
                     <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Send Notes</span></a>
                     <ul>
                         <li>

@@ -2,6 +2,9 @@
 
 @section("content")
     <div class="container d-flex flex-wrap" style="justify-content: space-around;">
+        @if(count($data) == 0) 
+            No Events found 
+        @endif
         @foreach($data as $d)
             <div class="col-md-6 col-xl-4"> 
                 <div class="block d-flex flex-column">

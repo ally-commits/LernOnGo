@@ -2,6 +2,9 @@
 
 @section("content")
     <div class="container d-flex flex-wrap" style="justify-content: space-around;">
+        @if(count($assignments) == 0) 
+            No Assignment found 
+        @endif
         @foreach($assignments as $assign)
             <div class="col-md-6 col-xl-4"> 
                 <div class="block d-flex flex-column">

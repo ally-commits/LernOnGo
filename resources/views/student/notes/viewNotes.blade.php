@@ -2,6 +2,9 @@
 
 @section("content")
     <div class="container d-flex flex-wrap" style="justify-content: space-around;">
+        @if(count($notes) == 0) 
+            No Notes found 
+        @endif
         @foreach($notes as $note)
             <div class="col-md-6 col-xl-4"> 
                 <div class="block d-flex flex-column">

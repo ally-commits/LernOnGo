@@ -2,6 +2,9 @@
 
 @section("content")
     <div class="container d-flex flex-wrap" style="justify-content: space-around;">
+        @if(count($videos) == 0) 
+            No Videos found 
+        @endif
         @foreach($videos as $video)
             <div class="col-md-6 col-xl-4"> 
                 <div class="block d-flex flex-column">

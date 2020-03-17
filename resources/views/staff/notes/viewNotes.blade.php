@@ -23,7 +23,7 @@
                             <td>{{ $d->sub_name }}</td> 
                             <td>{{ $d->name }}</td> 
                             <td>
-                                <a href="/staff/notes/{{$d->id}}/edit">Edit</a>
+                                <a href="/staff/notes/{{$d->id}}/edit">Edit</a> |
                                 <a href="/staff/notes/delete/{{$d->id}}">Delete</a>
                             </td>
                         </tr>

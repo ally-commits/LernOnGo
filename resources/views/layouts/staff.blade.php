@@ -20,10 +20,22 @@
 </head>
 <body>
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-glass page-header-inverse main-content-boxed">
-        @include("includes.staff") 
+        @include("includes.staff")
+        @if(Session::has('message'))
+        <div class="row w-100 d-flex justify-content-center"> 
+            <div class="alert alert-success alert-dismissable p-2" role="alert" style="z-index:10000;position: absolute;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h3 class="alert-heading font-size-h4 font-w400 p-0 m-0">Success</h3>
+                <p class="mb-0">{{ Session::get('message') }}</p>
+            </div>
+        </div>
+        @endif 
         <div style="padding-top: 100px;"></div>
         @yield('content') 
     </div> 
+    @yield("js")
     <script src="{{ asset('assets/js/codebase.core.min.js') }}"></script>
     <script src="{{ asset('assets/js/codebase.app.min.js') }}"></script> 
     <script src="{{ asset('assets/js/plugins/slick/slick.min.js') }}"></script> 

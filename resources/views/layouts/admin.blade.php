@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Admin     Dashboard</title>
+    <title>Admin Dashboard</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -38,6 +38,17 @@
 <body>
     <div id="page-container" class="sidebar-o enable-page-overlay side-scroll page-header-glass page-header-inverse main-content-boxed">
         @include("includes.admin") 
+        @if(Session::has('message'))
+        <div class="row"> 
+            <div class="col-md-6 alert alert-success alert-dismissable p-2" role="alert" style="z-index:10000;position: absolute;">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h3 class="alert-heading font-size-h4 font-w400 p-0 m-0">Success</h3>
+                <p class="mb-0">{{ Session::get('message') }}</p>
+            </div>
+        </div>
+        @endif
         <div class="p-50"></div>
         @yield('content') 
     </div>

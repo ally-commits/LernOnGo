@@ -63,6 +63,17 @@
                             <a href="/staff/assignment/create">Add Assignment</a>
                         </li> 
                     </ul> 
+                </li> 
+                <li>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">MCQ</span></a>
+                    <ul>
+                        <li>
+                            <a href="/staff/mcq">View Mcqs</a>
+                        </li>
+                        <li>
+                            <a href="/staff/mcq/create">Add Mcqs</a>
+                        </li> 
+                    </ul> 
                 </li>  
                 <li>
                     <a  href="/staff/view-sent-notes"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">View Sent Notes</span></a>

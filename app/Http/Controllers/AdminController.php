@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+
  
 class AdminController extends Controller
 {
@@ -22,6 +24,13 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $staff = DB::table("staff")->count();
+        $student = DB::table("users")->count();
+        $notes = DB::table("notes")->count();
+        $videos = DB::table("videos")->count();
+        $subjects = DB::table("subjects")->count();
+
+        return view('admin.dashboard')->with("staff",$staff)->with("student",$student)
+            ->with("notes",$notes)->with('videos',$videos)->with('subjects',$subjects);
     }
 }
