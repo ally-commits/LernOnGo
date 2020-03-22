@@ -26,7 +26,7 @@
                         <div class="form-group col-md-6">
                             <label for="">Enter the Name</label>
                             <input type="text" place="Name" class="form-control  @error('name') is-invalid @enderror"
-                                name="name" value="{{ $notes[0]->Name }}" />
+                                name="name" value="{{ $notes[0]->name }}" />
                             @error("name")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

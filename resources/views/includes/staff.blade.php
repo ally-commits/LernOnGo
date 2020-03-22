@@ -21,7 +21,10 @@
         <div class="content-side content-side-full">
             <ul class="nav-main">
                 <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Notes</span></a>
+                    <a  href="/staff/dashboard"><i class="fa fa-dashboard"></i><span class="sidebar-mini-hide">Dashboard</span></a>
+                </li>
+                <li>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-notebook"></i><span class="sidebar-mini-hide">Notes</span></a>
                     <ul>
                         <li>
                             <a href="/staff/notes">View Notes</a>
@@ -32,7 +35,7 @@
                     </ul> 
                 </li>
                 <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Videos</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="fa fa-file-video-o"></i><span class="sidebar-mini-hide">Videos</span></a>
                     <ul>
                         <li>
                             <a href="/staff/videos">View Videos</a>
@@ -43,7 +46,7 @@
                     </ul> 
                 </li> 
                 <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Events</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-layers"></i><span class="sidebar-mini-hide">Events</span></a>
                     <ul>
                         <li>
                             <a href="/staff/staffEvent">View Event</a>
@@ -54,7 +57,7 @@
                     </ul> 
                 </li>  
                 <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Assignment</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="fa fa-sticky-note"></i><span class="sidebar-mini-hide">Assignment</span></a>
                     <ul>
                         <li>
                             <a href="/staff/assignment">View Assignment</a>
@@ -76,7 +79,7 @@
                     </ul> 
                 </li>  
                 <li>
-                    <a  href="/staff/view-sent-notes"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">View Sent Notes</span></a>
+                    <a  href="/staff/view-sent-notes"><i class="fa fa-users"></i><span class="sidebar-mini-hide">View Sent Notes</span></a>
                 </li>
             </ul>
         </div> 
@@ -95,14 +98,27 @@
         <div class="content-header-section"> 
             <ul class="navbar-nav ml-auto d-flex flex-row" > 
                 @guest
-                    <li class="nav-item mr-2">
-                        <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="text-white nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Login Here<span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('login') }}" >
+                                Student Login
+                            </a>
+                            <a class="dropdown-item" href="/staff/login" >
+                                Staff Login
+                            </a>
+                            <a class="dropdown-item" href="/admin/login" >
+                                Admin Login
+                            </a>
+
+                            @if (Route::has('register')) 
+                                <a class="dropdown-item" href="{{ route('register') }}">{{ __('Student Register') }}</a>
+                            @endif 
+                        </div>
                     </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        </li>
-                    @endif
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="text-white nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -7,10 +7,15 @@ use DB;
 use App\MCQ;
 use App\StudentAnswer;
 use Auth;
+use App\submittedAnswers;
 use Redirect;
 
 class StudentMCQController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function viewSem() {
         $semester = DB::table("semesters")->get();
 
@@ -64,10 +69,19 @@ class StudentMCQController extends Controller
         $i = 1; 
         foreach($mcq as $d) {
             $val = $data["Question".$i++];
+            $ans = false;
             if($d->answer == $val) {
                 $answer++;
+                $ans = true;
             }
-        } 
+            submittedAnswers::create([
+                'studentId' => Auth::user()->id,
+                'questionId' => $d->id,
+                'mcqId' => $d->mcqId,
+                'answer' => $val,
+                'correct' => $ans
+            ]);
+        }  
         StudentAnswer::create([
             'studentId' => Auth::user()->id,
             'mcqId' => $mcqId,

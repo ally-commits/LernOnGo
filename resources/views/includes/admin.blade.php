@@ -21,10 +21,10 @@
         <div class="content-side content-side-full">
             <ul class="nav-main">
                 <li>
-                    <a href="/admin/dashboard"><i class="si si-cup"></i><span class="sidebar-mini-hide">Home</span></a>
+                    <a href="/admin/dashboard"><i class="si si-home"></i><span class="sidebar-mini-hide">Home</span></a>
                 </li>
                 <li>
-                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Subject</span></a>
+                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="fa fa-sticky-note-o"></i><span class="sidebar-mini-hide">Subject</span></a>
                 <ul>
                     <li>
                         <a href="/admin/subject">View Subject</a>
@@ -35,7 +35,7 @@
                 </ul>
                 </li>
                 <li>
-                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Events</span></a>
+                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="fa fa-th"></i><span class="sidebar-mini-hide">Events</span></a>
                 <ul>
                     <li>
                         <a href="/admin/events">View Event</a>
@@ -46,7 +46,7 @@
                 </ul>
                 </li>
                 <li>
-                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Staff</span></a>
+                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="fa fa-user"></i><span class="sidebar-mini-hide">Staff</span></a>
                 <ul>
                     <li>
                         <a href="/admin/staff">View Staff</a>
@@ -57,7 +57,7 @@
                 </ul>
                 </li>
                 <li>
-                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Scholarship</span></a>
+                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-map"></i><span class="sidebar-mini-hide">Scholarship</span></a>
                 <ul>
                     <li>
                         <a href="/admin/scholarship">View Scholarship</a>
@@ -85,21 +85,27 @@
         <div class="content-header-section"> 
             <ul class="navbar-nav ml-auto d-flex flex-row" > 
                 @guest
-                    
-                    <li class="nav-item mr-2">
-                        <a class="nav-link text-white" href="{{ route('staff.login') }}">{{ __('Staff Login') }}</a>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="text-white nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Login Here<span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('login') }}" >
+                                Student Login
+                            </a>
+                            <a class="dropdown-item" href="/staff/login" >
+                                Staff Login
+                            </a>
+                            <a class="dropdown-item" href="/admin/login" >
+                                Admin Login
+                            </a>
+
+                            @if (Route::has('register')) 
+                                <a class="dropdown-item" href="{{ route('register') }}">{{ __('Student Register') }}</a>
+                            @endif 
+                        </div>
                     </li>
-                    <li class="nav-item mr-2">
-                        <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Student Login') }}</a>
-                    </li>
-                    <li class="nav-item mr-2">
-                        <a class="nav-link text-white" href="{{ route('admin.login') }}">{{ __('admin Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Student Register') }}</a>
-                        </li>
-                    @endif
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="text-white nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -107,9 +113,6 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}" >
-                                Profile
-                            </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

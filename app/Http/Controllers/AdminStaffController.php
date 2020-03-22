@@ -101,7 +101,7 @@ class AdminStaffController extends Controller
                 'password' => ['required','min:8','confirmed']
             ]);
             DB::table("staff")
-                ->where("id", '=', $data['id'])
+                ->where("id", '=', $id)
                 ->update(['password' => Hash::make($data['password'])]);
         }
         DB::table("staff")

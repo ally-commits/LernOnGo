@@ -54,6 +54,9 @@ Route::prefix('staff')->group(function() {
     Route::get('/login', 'Auth\StaffLoginController@showLoginForm')->name('staff.login');
     Route::post('/login', 'Auth\StaffLoginController@login')->name('staff.login.submit');
     Route::get('/dashboard', 'StaffController@index')->name('staff.dashboard');
+    Route::get('/subject/create', 'StaffController@create')->name('staff.create');
+    Route::get('/subject/delete/{id}', 'StaffController@delete')->name('staff.delete');
+    Route::post('/addSubject', 'StaffController@addSubject')->name('staff.addSubject');
 
     Route::resource('notes', 'StaffNotesController');
     Route::get('notes/delete/{id}', 'StaffNotesController@delete');
@@ -62,6 +65,8 @@ Route::prefix('staff')->group(function() {
     Route::get('mcq/delete/{id}', 'MCQController@delete');
     Route::get('mcq/publish/{id}', 'MCQController@publish');
     Route::get("mcq/student-attended/{id}","MCQController@showResult");
+    Route::get("mcq/student-attended/{id}/{userId}","MCQController@showAnswer");
+    Route::get("mcq/{subId}/calculate","MCQController@calculate");
 
     Route::get("/question/{mcqId}/create",'QuestionController@addData');
     Route::post("/question/{mcqId}/store",'QuestionController@store');

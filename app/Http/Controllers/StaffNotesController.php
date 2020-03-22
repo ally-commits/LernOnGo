@@ -8,6 +8,8 @@ use Auth;
 use App\Semester;
 use App\StudentNotes;
 use App\Notes;
+use App\subjectManager;
+use App\Subjects;
 use Redirect;
 use DB;
 use Hash;
@@ -41,7 +43,11 @@ class StaffNotesController extends Controller
      */
     public function create()
     { 
-        $subjects = DB::table("subjects")->get();
+        $subjectId = DB::table("subject_managers")
+            ->where("staffId","=",Auth::user()->id)
+            ->pluck("subjectId")
+            ->all(); 
+        $subjects = Subjects::whereIn("id", $subjectId)->get(); 
         return view("staff.notes.addNotes")->with("subjects", $subjects);      ;
     }
 
@@ -58,10 +64,12 @@ class StaffNotesController extends Controller
             'name' => ['required', 'string'],  
             'file' => ['required'], 
         ]);  
-        $semester = Semester::find($data['subject']);
+        $subject = Subjects::find($data['subject']); 
+        $semester = Semester::find($subject->sem_id);
         $file = $request->file('file');
         $fileName = time().'.'.$data['file']->getClientOriginalExtension();
-        $file->move('files/', $fileName); 
+        $file->move('files/', $fileName);
+
         Notes::create([
             'name' => $data['name'],
             'file' =>  'files/'.$fileName, 
@@ -96,7 +104,13 @@ class StaffNotesController extends Controller
                 ->select("semesters.sem_name","subjects.name as sub_name","notes.*")
                 ->where("notes.id",$id)
                 ->get(); 
-        $subjects = DB::table("subjects")->get();
+        
+        $subjectId = DB::table("subject_managers")
+            ->where("staffId","=",Auth::user()->id)
+            ->pluck("subjectId")
+            ->all(); 
+        $subjects = Subjects::whereIn("id", $subjectId)->get();  
+
         return view("staff.notes.editNotes")->with("notes",$data)->with("subjects", $subjects);      ;;
     }
 
@@ -126,7 +140,9 @@ class StaffNotesController extends Controller
                 ->where('id' ,'=', $id)
                 ->update(['file' => 'files/'.$filesName]);
         } 
-        $semester = Semester::find($data['subject']);
+        $subject = Subjects::find($data['subject']); 
+        $semester = Semester::find($subject->sem_id);
+
         DB::table("notes")
             ->where("id",$id)
             ->update(['name' => $data['name'], 

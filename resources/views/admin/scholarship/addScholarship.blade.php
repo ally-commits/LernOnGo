@@ -3,8 +3,9 @@
 @section("content")
     <div class="container">
         <div class="card p-2">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Add Scholarship</h5>
+                <a href="/admin/scholarship" class="btn btn-primary">View Scholarships</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('scholarship.store') }}" method="POST">
@@ -21,7 +22,7 @@
                         <div class="form-group col-md-6">
                             <label for="">Enter the last date to Apply</label>
                             <input type="date" place="last Date" class="form-control  @error('lastDate') is-invalid @enderror"
-                                name="lastDate" value="{{ old('lastDate') }}" />
+                                name="lastDate" value="{{ old('lastDate') }}" id="myDate" />
                             @error("lastDate")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -40,4 +41,16 @@
             </div>
         </div>
     </div>
+    <script>
+    let myDate = document.getElementById("myDate"); 
+    let month = 0;
+    if(parseInt(new Date().getMonth()+1) < 9) {
+        month = "0" + parseInt(new Date().getMonth()+1);
+    } else {
+        month = parseInt(new Date().getMonth()+1);
+    }
+    let value = new Date().getFullYear() + "-" + month + "-" + new Date().getDate();
+    myDate.min = value;
+
+</script>
 @endsection

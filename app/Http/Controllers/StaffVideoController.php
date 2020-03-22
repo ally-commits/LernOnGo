@@ -40,7 +40,11 @@ class StaffVideoController extends Controller
      */
     public function create()
     { 
-        $subjects = DB::table("subjects")->get();
+        $subjectId = DB::table("subject_managers")
+            ->where("staffId","=",Auth::user()->id)
+            ->pluck("subjectId")
+            ->all(); 
+        $subjects = Subjects::whereIn("id", $subjectId)->get();  
         return view("staff.videos.addVideos")->with("subjects", $subjects);      ;
     }
 
@@ -57,7 +61,9 @@ class StaffVideoController extends Controller
             'name' => ['required', 'string'],  
             'link' => ['string'], 
         ]);  
-        $semester = Semester::find($data['subject']); 
+        $subject = Subjects::find($data['subject']); 
+        $semester = Semester::find($subject->sem_id);
+        
         Video::create([
             'name' => $data['name'],
             'link' =>  $data['link'],
@@ -92,7 +98,11 @@ class StaffVideoController extends Controller
                 ->select("semesters.sem_name","subjects.name as sub_name","videos.*")
                 ->where("videos.id",$id)
                 ->get(); 
-        $subjects = DB::table("subjects")->get();
+        $subjectId = DB::table("subject_managers")
+            ->where("staffId","=",Auth::user()->id)
+            ->pluck("subjectId")
+            ->all(); 
+        $subjects = Subjects::whereIn("id", $subjectId)->get();  
         return view("staff.videos.editVideos")->with("video",$data)->with("subjects", $subjects);      ;;
     }
 
@@ -110,7 +120,9 @@ class StaffVideoController extends Controller
             'name' => ['required', 'string'],  
             'link' => ['required','string'] 
         ]); 
-        $semester = Semester::find($data['subject']);
+        $subject = Subjects::find($data['subject']); 
+        $semester = Semester::find($subject->sem_id);
+        
         DB::table("videos")
             ->where("id",$id)
             ->update(['name' => $data['name'], 'link' => $data['link'],

@@ -3,8 +3,9 @@
 @section("content")
     <div class="container">
         <div class="card p-2">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Add MCQ</h5>
+                <a class="btn btn-primary" href="/staff/mcq">View Mcq</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('mcq.store') }}" method="POST" enctype="multipart/form-data"> 

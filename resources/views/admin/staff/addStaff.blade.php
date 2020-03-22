@@ -3,8 +3,9 @@
 @section("content")
     <div class="container">
         <div class="card p-2">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Add Staff</h5>
+                <a href="/admin/staff" class="btn btn-primary">View Staff</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('staff.store') }}" method="POST">

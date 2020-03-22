@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/slick/slick.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/js/plugins/slick/slick-theme.css') }}"> 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,400i,600,700&display=swap">
+    @yield("css")
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" id="css-main" href="{{ asset('assets/css/codebase.min.css') }}"> 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -40,5 +41,11 @@
     <script src="{{ asset('assets/js/codebase.app.min.js') }}"></script> 
     <script src="{{ asset('assets/js/plugins/slick/slick.min.js') }}"></script> 
     <script>jQuery(function(){ Codebase.helpers('slick'); });</script>
+    <script>
+        let date = new Date();
+        document.getElementById("myDate").min = date.getFullYear() + "-" + parseInt(date.getMonth() + 1) + "-" date.getDate();
+    </script>
+
+    @yield("js")
 </body>
 </html>

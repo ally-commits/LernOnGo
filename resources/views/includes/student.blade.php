@@ -21,28 +21,28 @@
         <div class="content-side content-side-full">
             <ul class="nav-main">
                 <li>
-                    <a href="/"><i class="si si-cup"></i><span class="sidebar-mini-hide">Home</span></a>
+                    <a href="/"><i class="si si-home"></i><span class="sidebar-mini-hide">Home</span></a>
                 </li>
                 <li>
-                    <a href="/view-notes"><i class="si si-cup"></i><span class="sidebar-mini-hide">View Notes</span></a>
+                    <a href="/view-notes"><i class="si si-notebook"></i><span class="sidebar-mini-hide">View Notes</span></a>
                 </li>  
                 <li>
-                    <a href="/view-videos"><i class="si si-cup"></i><span class="sidebar-mini-hide">View Videos</span></a>
+                    <a href="/view-videos"><i class="fa fa-file-video-o"></i><span class="sidebar-mini-hide">View Videos</span></a>
                 </li>  
                 <li>
-                    <a href="/view-assignment"><i class="si si-cup"></i><span class="sidebar-mini-hide">Assignments</span></a>
+                    <a href="/view-assignment"><i class="fa fa-file-text-o"></i><span class="sidebar-mini-hide">Assignments</span></a>
                 </li> 
                 <li>
-                    <a href="/view-scholarship"><i class="si si-cup"></i><span class="sidebar-mini-hide">Scholarship</span></a>
+                    <a href="/view-scholarship"><i class="fa fa-file-excel-o"></i><span class="sidebar-mini-hide">Scholarship</span></a>
                 </li>  
                 <li>
-                    <a href="/view-events"><i class="si si-cup"></i><span class="sidebar-mini-hide">Events</span></a>
+                    <a href="/view-events"><i class="fa fa-eercast"></i><span class="sidebar-mini-hide">Events</span></a>
                 </li> 
                 <li>
-                    <a href="/view-mcq"><i class="si si-cup"></i><span class="sidebar-mini-hide">MCQ</span></a>
+                    <a href="/view-mcq"><i class="fa fa-dedent"></i><span class="sidebar-mini-hide">MCQ</span></a>
                 </li> 
                 <li>
-                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-puzzle"></i><span class="sidebar-mini-hide">Send Notes</span></a>
+                    <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="fa fa-copy"></i><span class="sidebar-mini-hide">Send Notes</span></a>
                     <ul>
                         <li>
                             <a href="/view-sent-notes">View Sent Notes</a>
@@ -69,20 +69,27 @@
         <div class="content-header-section"> 
             <ul class="navbar-nav ml-auto d-flex flex-row" > 
                 @guest 
-                    <li class="nav-item mr-2">
-                        <a class="nav-link text-white" href="{{ route('staff.login') }}">{{ __('Staff Login') }}</a>
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="text-white nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            Login Here<span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('login') }}" >
+                                Student Login
+                            </a>
+                            <a class="dropdown-item" href="/staff/login" >
+                                Staff Login
+                            </a>
+                            <a class="dropdown-item" href="/admin/login" >
+                                Admin Login
+                            </a>
+
+                            @if (Route::has('register')) 
+                                <a class="dropdown-item" href="{{ route('register') }}">{{ __('Student Register') }}</a>
+                            @endif 
+                        </div>
                     </li>
-                    <li class="nav-item mr-2">
-                        <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Student Login') }}</a>
-                    </li>
-                    <li class="nav-item mr-2">
-                        <a class="nav-link text-white" href="{{ route('admin.login') }}">{{ __('Admin Login') }}</a>
-                    </li>
-                    @if (Route::has('register'))
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Student Register') }}</a>
-                        </li>
-                    @endif
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="text-white nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -90,9 +97,6 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}" >
-                                Profile
-                            </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">

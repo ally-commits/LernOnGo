@@ -24,7 +24,7 @@
                         <div class="form-group col-md-6">
                             <label for="">Enter the Date</label>
                             <input type="date" placeholder="date" class="form-control  @error('date') is-invalid @enderror"
-                                name="date" value="{{ $event[0]->date }}" />
+                                name="date" value="{{ $event[0]->date }}" id="myDate" />
                             @error("date")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -54,4 +54,16 @@
             </div>
         </div>
     </div>
+    <script>
+    let myDate = document.getElementById("myDate"); 
+    let month = 0;
+    if(parseInt(new Date().getMonth()+1) < 9) {
+        month = "0" + parseInt(new Date().getMonth()+1);
+    } else {
+        month = parseInt(new Date().getMonth()+1);
+    }
+    let value = new Date().getFullYear() + "-" + month + "-" + new Date().getDate();
+    myDate.min = value;
+
+</script>
 @endsection

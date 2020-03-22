@@ -3,8 +3,9 @@
 @section("content")
     <div class="container">
         <div class="card p-2">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Add Subject</h5>
+                <a href="/admin/events" class="btn btn-primary">View Events</a>
             </div>
             <div class="card-body">
                 <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
@@ -24,7 +25,7 @@
                         <div class="form-group col-md-6">
                             <label for="">Enter the Date</label>
                             <input type="date" placeholder="date" class="form-control  @error('date') is-invalid @enderror"
-                                name="date" value="{{ old('date') }}" />
+                                name="date" value="{{ old('date') }}" id="myDate"/>
                             @error("date")
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -54,4 +55,16 @@
             </div>
         </div>
     </div>
+    <script>
+    let myDate = document.getElementById("myDate"); 
+    let month = 0;
+    if(parseInt(new Date().getMonth()+1) < 9) {
+        month = "0" + parseInt(new Date().getMonth()+1);
+    } else {
+        month = parseInt(new Date().getMonth()+1);
+    }
+    let value = new Date().getFullYear() + "-" + month + "-" + new Date().getDate();
+    myDate.min = value;
+
+</script>
 @endsection

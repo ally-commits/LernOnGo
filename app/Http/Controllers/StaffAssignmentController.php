@@ -9,6 +9,7 @@ use App\Semester;
 use App\Assignment;
 use App\AssignmentAnswer;
 use App\User;
+use App\Subjects;
 use Redirect;
 use DB;
 use Hash;
@@ -57,7 +58,11 @@ class StaffAssignmentController extends Controller
     }
     public function create()
     { 
-        $subjects = DB::table("subjects")->get();
+        $subjectId = DB::table("subject_managers")
+            ->where("staffId","=",Auth::user()->id)
+            ->pluck("subjectId")
+            ->all(); 
+        $subjects = Subjects::whereIn("id", $subjectId)->get();  
         return view("staff.assignment.addAssignment")->with("subjects", $subjects);      ;
     }
 
@@ -74,7 +79,9 @@ class StaffAssignmentController extends Controller
             'name' => ['required', 'string'],  
             'question' => ['required','string'], 
         ]);  
-        $semester = Semester::find($data['subject']); 
+        $subject = Subjects::find($data['subject']); 
+        $semester = Semester::find($subject->sem_id);
+
         Assignment::create([
             'name' => $data['name'],
             'question' =>  $data['question'],
@@ -109,7 +116,11 @@ class StaffAssignmentController extends Controller
                 ->select("semesters.sem_name","subjects.name as sub_name","assignments.*")
                 ->where("assignments.id",$id)
                 ->get(); 
-        $subjects = DB::table("subjects")->get();
+        $subjectId = DB::table("subject_managers")
+            ->where("staffId","=",Auth::user()->id)
+            ->pluck("subjectId")
+            ->all(); 
+        $subjects = Subjects::whereIn("id", $subjectId)->get();  
         return view("staff.assignment.editAssignment")->with("assignment",$data)->with("subjects", $subjects);      ;;
     }
 
@@ -127,7 +138,8 @@ class StaffAssignmentController extends Controller
             'name' => ['required', 'string'],  
             'question' => ['required','string'] 
         ]); 
-        $semester = Semester::find($data['subject']);
+        $subject = Subjects::find($data['subject']); 
+        $semester = Semester::find($subject->sem_id);
         DB::table("assignments")
             ->where("id",$id)
             ->update(['name' => $data['name'], 'question' => $data['question'],
