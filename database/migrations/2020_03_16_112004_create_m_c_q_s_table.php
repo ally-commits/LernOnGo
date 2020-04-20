@@ -16,11 +16,23 @@ class CreateMCQSTable extends Migration
         Schema::create('m_c_q_s', function (Blueprint $table) {
             $table->string('id')->unique();
             $table->string("name");
-            $table->string("staffId");
-            $table->string("subjectId");
-            $table->string("semId");
+            $table->unsignedBigInteger("staffId");
+            $table->unsignedBigInteger("subjectId");
+            $table->unsignedBigInteger("semId");
             $table->boolean("publish")->default(false);
             $table->timestamps();
+
+            $table->foreign('subjectId')
+                ->references('id')->on('subjects')
+                ->onDelete('cascade');
+            
+            $table->foreign('staffId')
+                ->references('id')->on('staff')
+                ->onDelete('cascade');
+
+            $table->foreign('semId')
+                ->references('id')->on('semesters')
+                ->onDelete('cascade');
         });
     }
 

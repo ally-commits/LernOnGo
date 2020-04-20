@@ -18,9 +18,19 @@ class CreateNotesTable extends Migration
             $table->string("name");
             $table->string("file");
             $table->string("staffId");
-            $table->string("semId");
-            $table->string("subId");
+            $table->unsignedBigInteger("semId");
+            $table->unsignedBigInteger("subId");
             $table->timestamps();
+
+
+            $table->foreign('semId')
+                ->references('id')->on('semesters')
+                ->onDelete('cascade');
+
+            
+            $table->foreign('subId')
+                ->references('id')->on('subjects')
+                ->onDelete('cascade');
         });
     }
 

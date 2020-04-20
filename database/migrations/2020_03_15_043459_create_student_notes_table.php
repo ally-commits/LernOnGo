@@ -17,11 +17,24 @@ class CreateStudentNotesTable extends Migration
             $table->bigIncrements('id');
             $table->string("file");
             $table->string("name");
-            $table->string("staffId");
-            $table->string("subjectId");
-            $table->string("studentId");
+            $table->unsignedBigInteger("staffId");
+            $table->unsignedBigInteger("subjectId");
+            $table->unsignedBigInteger("studentId");
             $table->string("status")->default("pending");
             $table->timestamps();
+
+            $table->foreign('studentId')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            
+            $table->foreign('staffId')
+                ->references('id')->on('staff')
+                ->onDelete('cascade');
+            
+            $table->foreign('subjectId')
+                ->references('id')->on('subjects')
+                ->onDelete('cascade');
+ 
         });
     }
 

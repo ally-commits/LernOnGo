@@ -15,9 +15,18 @@ class CreateSubjectManagersTable extends Migration
     {
         Schema::create('subject_managers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("staffId");
-            $table->string("subjectId");
+            $table->unsignedBigInteger("staffId");
+            $table->unsignedBigInteger("subjectId");
             $table->timestamps();
+
+            $table->foreign('staffId')
+                ->references('id')->on('staff')
+                ->onDelete('cascade');
+
+            $table->foreign('subjectId')
+                ->references('id')->on('subjects')
+                ->onDelete('cascade');
+ 
         });
     }
 

@@ -17,9 +17,17 @@ class CreateStudentAnswersTable extends Migration
             $table->bigIncrements('id');
             $table->integer("answer");
             $table->integer("count");
-            $table->string("studentId");
+            $table->unsignedBigInteger("studentId");
             $table->string("mcqId");
             $table->timestamps();
+ 
+            $table->foreign('studentId')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('mcqId')
+                ->references('id')->on('m_c_q_s')
+                ->onDelete('cascade');
         });
     }
 

@@ -15,12 +15,24 @@ class CreateSubmittedAnswersTable extends Migration
     {
         Schema::create('submitted_answers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("questionId");
-            $table->string("studentId");
+            $table->unsignedBigInteger("questionId");
+            $table->unsignedBigInteger("studentId");
             $table->string("mcqId");
             $table->string("answer");
             $table->string("correct");
             $table->timestamps();
+
+            $table->foreign('studentId')
+                ->references('id')->on('users')
+                ->onDelete('cascade'); 
+
+            $table->foreign('questionId')
+                ->references('id')->on('questions')
+                ->onDelete('cascade');
+
+            $table->foreign('mcqId')
+                ->references('id')->on('m_c_q_s')
+                ->onDelete('cascade');
         });
     }
 

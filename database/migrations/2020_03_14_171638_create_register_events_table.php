@@ -15,9 +15,17 @@ class CreateRegisterEventsTable extends Migration
     {
         Schema::create('register_events', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string("studentId");
-            $table->string("eventId");
+            $table->unsignedBigInteger("studentId");
+            $table->unsignedBigInteger("eventId");
             $table->timestamps();
+
+            $table->foreign('studentId')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+
+            $table->foreign('eventId')
+                ->references('id')->on('events')
+                ->onDelete('cascade');
         });
     }
 

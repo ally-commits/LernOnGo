@@ -17,10 +17,22 @@ class CreateVideosTable extends Migration
             $table->bigIncrements('id');
             $table->string("name");
             $table->string("link");
-            $table->string("staffId");
-            $table->string("semId");
-            $table->string("subId");
+            $table->unsignedBigInteger("staffId");
+            $table->unsignedBigInteger("semId");
+            $table->unsignedBigInteger("subId");
             $table->timestamps();
+
+            $table->foreign('semId')
+                ->references('id')->on('semesters')
+                ->onDelete('cascade');
+
+            $table->foreign('staffId')
+                ->references('id')->on('staff')
+                ->onDelete('cascade');
+            
+            $table->foreign('subId')
+                ->references('id')->on('subjects')
+                ->onDelete('cascade');
         });
     }
 

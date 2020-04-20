@@ -23,6 +23,12 @@ class CreateQuestionsTable extends Migration
             $table->string("answer");
             $table->string("mcqId");
             $table->timestamps();
+
+            $table->foreign('mcqId')
+                ->references('id')->on('m_c_q_s')
+                ->onDelete('cascade');
+
+ 
         });
     }
 

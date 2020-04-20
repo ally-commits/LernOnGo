@@ -16,9 +16,17 @@ class CreateAssignmentAnswersTable extends Migration
         Schema::create('assignment_answers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->longText("answer");
-            $table->string("studentId");
-            $table->string("assignmentId");
+            $table->unsignedBigInteger("studentId");
+            $table->unsignedBigInteger("assignmentId");
             $table->timestamps();
+
+            $table->foreign('studentId')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
+            
+            $table->foreign('assignmentId')
+                ->references('id')->on('assignments')
+                ->onDelete('cascade');
         });
     }
 
